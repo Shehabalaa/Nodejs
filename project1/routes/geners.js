@@ -1,38 +1,55 @@
+const mongoose = require('mongoose')
 const express = require('express')
 const router = new express.Router()
 const Joi = require('joi')
 
-const geners=[
-{id:1,name:'horror'},
-{id:2,name:'comedy'},
-{id:3,name:'action'}]
+mongoose.connect('mongodb://localhost/vidly')
+    .then(()=>console.log('connected to database'))
+    .catch((err)=>console.log(err))
 
-router.get('/',(req,res)=>{
-    res.send(geners);
+const genreSchema = new mongoose.Schema({
+    name:{
+        type:String,
+        minlength:3,
+        maxlength:10,
+        required:true
+    }
+})
+const Genere =  mongoose.model('genres',genreSchema)
+
+router.get('/',async (req,res)=>{
+    const genres = await Genere.find().sort('name')
+    res.send(genres);
 })
 
-router.get('/:id',(req,res)=>{
-    let genere = geners.find((obj)=> obj.id === parseInt(req.params.id));
-    if(!genere) if(!genere) return res.status(404).send('Course with given id not found')
-    res.send(genere)
+router.get('/:id',async (req,res)=>{
+    const genres = await Genere.find({_id:parseInt(req.params.id)});
+    if(!genres) if(!genres) return res.status(404).send('Course with given id not found')
+    res.send(genres[0])
 })
 
-router.post('/',(req,res)=>{
-    const shcema={name:Joi.string().min(3).max(10).required()}
-    const {error} = Joi.validate(req.body,shcema)
-    if(error) return res.status(400).send('Wrong Name')
-    const genere={
-        id:geners.length+1,
-        name:req.body.name
-    }   
-    geners.push(genere)
-    res.send(genere)
+
+router.post('/',async (req,res)=>{
+    const genere = Genere(req.body)
+    try {
+        const result = await genere.save()
+        res.send(result)
+    } catch (error) {
+        if(error) return res.status(400).send('Wrong Name')
+    }    
 })
 
-router.put('/:id',(req,res)=>{
-    let genere = geners.find((obj)=> obj.id === parseInt(req.params.id));
-    genere.name =req.body.name
-    res.send(genere)
+router.put('/:id',async (req,res)=>{
+    let genre = geners.find({_id:parseInt(req.params.id)});
+    if(!genere)
+        return res.status(400).send('Wrong ID')
+    genre.name =req.body.name
+    try {
+        const result = await genere.save()
+        res.send(result)
+    } catch (error) {
+        if(error) return res.status(400).send('Wrong Name')
+    }  
 })
 
 router.delete('/:id',(req,res)=>{
