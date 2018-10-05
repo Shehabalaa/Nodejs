@@ -23,7 +23,5 @@ function addMovie(name,numinStock,dailyRentalRate,genres){
 }
 
 addMovie('hhh',13,42,[ {name:'comedy'}, {name:'romance'}])
-let b={name:"hello",n:"123"}
-let a={name:"notHello",num:"not123"}
-a=b
+
 console.log(a)

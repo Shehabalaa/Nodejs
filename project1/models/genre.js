@@ -8,7 +8,7 @@ const genreSchema = new mongoose.Schema({
         validate: {
             validator: function (v) {
                 return v && v.length > 3 && v.length < 10
-            }
+            }  
         }
     }
 })
