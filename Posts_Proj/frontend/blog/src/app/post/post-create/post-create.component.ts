@@ -1,3 +1,4 @@
+import { AppError } from '../../../common/erros/app-error';
 import { Observable } from 'rxjs';
 import { PostsService } from '../posts.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,9 +12,9 @@ import { Post } from '../../models/post';
     styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent implements OnInit {
-    
+
     constructor(private postsService: PostsService, private activatedRoute: ActivatedRoute, private router: Router) { }
-    
+
     private _isLoading = false;
     private _mode = "create"
     private post: Post = { _id: "", title: "", content: "" };
@@ -21,7 +22,7 @@ export class PostCreateComponent implements OnInit {
         title: new FormControl('', [Validators.required, Validators.minLength(3)]),
         content: new FormControl('', [Validators.required, Validators.minLength(3)])
     });
-    
+
     get isLoading() { return this._isLoading; }
     get mode() { return this._mode; }
     get title() { return this.form.get('title'); }
@@ -31,9 +32,9 @@ export class PostCreateComponent implements OnInit {
         this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
             if (paramMap.has("postId")) {
                 this._mode = "edit";
-                this._isLoading = true;        
+                this._isLoading = true;
                 this.postsService.get(paramMap.get("postId"))
-                    .subscribe((post:Post) => {
+                    .subscribe((post: Post) => {
                         this.post = post;
                         this.title.setValue(post.title);
                         this.content.setValue(post.content);
@@ -49,16 +50,16 @@ export class PostCreateComponent implements OnInit {
     onSavePost() {
         let observ: Observable<any>;
         if (this._mode == "create") {
-            observ = this.postsService.create({title:this.title.value, content:this.content.value});
+            observ = this.postsService.create({ title: this.title.value, content: this.content.value });
         } else {
-            observ = this.postsService.update(this.post._id, {title:this.title.value, content:this.content.value});
+            observ = this.postsService.update(this.post._id, { title: this.title.value, content: this.content.value });
         }
         this._isLoading = true;
-        observ.subscribe(()=>{
+        observ.subscribe(() => {
             this._isLoading = false;
             this.router.navigateByUrl('/')
         });
-        
+
     }
 
 }

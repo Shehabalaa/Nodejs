@@ -1,7 +1,9 @@
-import { PostsService } from '../posts.service';
-import { Component, OnInit } from '@angular/core';
-import { Post } from 'src/app/models/post';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { PostsService } from '../posts.service';
+import { Post } from 'src/app/models/post';
+import { NotFound } from 'src/common/erros/not-found';
+import { AppError } from 'src/common/erros/app-error';
 
 @Component({
   selector: 'app-post-list',
@@ -28,9 +30,15 @@ export class PostListComponent implements OnInit {
   onDelete(id:string){
       this._isLoading = true;
       this.postsService.delete(id, )
-      .subscribe((res)=>{
+      .subscribe(()=>{
         this.posts = this.posts.filter(post => post._id !== id);
         this._isLoading = false;
+      }, (error: AppError)=>{
+          if(error instanceof NotFound ){ 
+            //TODO 
+          } else {
+            throw error;
+          }
       });
   }
  

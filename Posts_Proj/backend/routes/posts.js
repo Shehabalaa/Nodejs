@@ -12,8 +12,7 @@ router.get("", (req, res, next) => {
     db.getDocs(Post).then((data)=>{
         res.status(200).json(data);
     }).catch((err)=>{
-        console.log(err);
-        res.status(500).json({msg:"Tezk 7amra"});
+        res.status(500).json(err);
     });   
 });
 
@@ -23,8 +22,7 @@ router.post("", (req, res, next) => {
     db.addDoc(post).then((createdPost)=>{
         res.status(200).json(createdPost);
     }).catch((err)=>{
-        console.log(err);
-        res.status(500).json({msg:"Tezk 7amra"});
+        res.status(500).json(err);
     })
 
 });
@@ -34,8 +32,7 @@ router.get("/:id", (req, res, next) => {
     db.getDoc(Post, req.params.id).then((data)=>{
         res.status(200).json(data);
     }).catch((err)=>{
-        console.log(err);
-        res.status(500).json({msg:"Tezk 7amra"});
+        res.status(500).json(err);
     });   
     
 });
@@ -50,8 +47,7 @@ router.delete("/:id", (req, res, next) => {
             res.status(404).json({msg:`No doc with id ${req.params.id} exists`});
         }
     }).catch((err)=>{
-        console.log(err);
-        res.status(500).json({msg:"Tezk 7amra"});
+        res.status(500).json(err);
     })
 });
 
@@ -60,8 +56,7 @@ router.put("/:id", (req, res, next) => {
     db.editDoc(Post, req.params.id, req.body).then(()=>{
         res.status(200).json(req.body);
     }).catch((err)=>{
-        console.log(err);
-        res.status(500).json({msg:"Tezk 7amra"});
+        res.status(500).json(err);
     })
 
 });

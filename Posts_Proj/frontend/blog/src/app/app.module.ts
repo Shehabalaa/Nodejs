@@ -1,6 +1,7 @@
+import { AppErrorHandler } from './../common/erros/app-error-handler';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatInputModule } from  '@angular/material';
 import { MatCardModule } from '@angular/material/card';
@@ -41,7 +42,10 @@ import { PostListComponent } from './post/post-list/post-list.component';
     MatExpansionModule,
     MatProgressSpinnerModule
   ],
-  providers: [PostsService],
+  providers: [
+      PostsService,
+      { provide:ErrorHandler, useClass: AppErrorHandler }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
