@@ -1,14 +1,16 @@
+import { SignInComponent } from './sign-in/sign-in.component';
+import { AppRoutingModule } from './app-routing.module';
 import { GithubFollowersService } from './services/github-followers.service';
 import { AppErrorHandler } from './common/app-error-handler';
 import { HttpClientModule } from '@angular/common/http';
 import { PostService } from './services/post.service';
-import { SignupFormComponent } from './signup-form/signup-form.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 import { SummaryPipe } from './summary.pipe';
 import { AuthorsService } from './authors.service';
 import { CoursesService } from './courses.service';
 import { CoursesComponent } from './courses.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, ErrorHandler } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -26,49 +28,49 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { PostsComponent } from './posts/posts.component';
 import { GithubFollowersComponent } from './github-followers/github-followers.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { GithubProfileComponent } from './github-profile/github-profile.component';
-import { NotFoundComponent } from './not-found/not-found.component'; 
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SignupFormComponent,
-    CourseComponent,
-    CoursesComponent,
-    AuthorsComponent,
-    SummaryPipe,
-    FavoriteComponent,
-    PanelComponent,
-    InputFormatDirective,
-    TitleCasePipe,
-    LikeComponent,
-    ZippyComponent,
-    ContactFormComponent,
-    NewCourseFormComponent,
-    ChangePasswordComponent,
-    PostsComponent,
-    GithubFollowersComponent,
-    NavbarComponent,
-    HomeComponent,
-    GithubProfileComponent,
-    NotFoundComponent,
-    RouterModule
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ],
-  providers: [
-    PostService,
-    CoursesService,
-    AuthorsService,
-    GithubFollowersService,
-    { provide: ErrorHandler, useClass: AppErrorHandler }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        SignUpComponent,
+        SignInComponent,
+        CourseComponent,
+        CoursesComponent,
+        AuthorsComponent,
+        SummaryPipe,
+        FavoriteComponent,
+        PanelComponent,
+        InputFormatDirective,
+        TitleCasePipe,
+        LikeComponent,
+        ZippyComponent,
+        ContactFormComponent,
+        NewCourseFormComponent,
+        ChangePasswordComponent,
+        PostsComponent,
+        GithubFollowersComponent,
+        NavbarComponent,
+        HomeComponent,
+        GithubProfileComponent,
+        NotFoundComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        AppRoutingModule
+    ],
+    providers: [
+        PostService,
+        CoursesService,
+        AuthorsService,
+        GithubFollowersService,
+        { provide: ErrorHandler, useClass: AppErrorHandler }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
