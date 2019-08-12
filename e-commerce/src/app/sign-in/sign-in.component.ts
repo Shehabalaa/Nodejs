@@ -28,20 +28,20 @@ export class SignInComponent {
     get password(): FormControl { return this.form.get('password') as FormControl; }
 
     signin() {
-        if (this.isloading == false) {
+        if (this.isloading === false) {
             this.isloading = true;
             this.authService.login(this.username.value, this.password.value)
                 .subscribe(() => {
                     this.isloading = false;
-                    let qpms = this.actvRoute.queryParamMap;
+                    const qpms = this.actvRoute.queryParamMap;
                     this.actvRoute.queryParamMap.subscribe((paramMap: ParamMap) => {
-                        let route = paramMap.get('returnUrl') || '/';
+                        const route = paramMap.get('returnUrl') || '/';
                         this.router.navigate([route]);
-                    })
+                    });
                 }, (err: AppError) => {
                     this.isloading = false;
                     if (err instanceof BadInput) {
-                        this.form.setErrors(err.originalError)
+                        this.form.setErrors(err.originalError);
                     } else {
                         throw err;
                     }
@@ -67,7 +67,7 @@ export class SignInComponent {
 //                     resolve(null);
 //                 }else{
 //                     resolve({nice:'A7A'});
-//                 }                
+//                 }
 //             }, 2000);
 //         })
 //     }

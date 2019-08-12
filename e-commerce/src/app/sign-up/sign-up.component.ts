@@ -8,7 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
     styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
-    skills: string[] = []
+    skills: string[] = [];
     form = new FormGroup({
         username: new FormControl('', [Validators.required, Validators.minLength(3)]),
         password: new FormControl('', [Validators.required, Validators.minLength(4)]),

@@ -5,7 +5,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
-    token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoZWhhYiIsInBhc3N3b3JkIjoic2hlaGFiIiwiYWRtaW4iOnRydWV9.OwKjuyWNMcM1_XUKxuOzMzxDWMJIgbQyeiKPNnw474Q'
+    token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoZWhhYiIsInBhc3N3b3JkIjoic2hlaGFiIiwiYWRtaW4iOnRydWV9.OwKjuyWNMcM1_XUKxuOzMzxDWMJIgbQyeiKPNnw474Q';
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -13,9 +13,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return of(null).pipe(mergeMap(() => {
             // authenticate - public
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
-                let user = request.body;
-                if (user.username === "shehab" && user.password === "shehab") {
-                    user['token'] = this.token;
+                const user = request.body;
+                if (user.username === 'shehab' && user.password === 'shehab') {
+                    user.token = this.token;
                     return ok(user);
                 }
                 return error();
@@ -25,7 +25,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             if (request.url.endsWith('/users/orders') && request.method === 'GET') {
                 const authHeader = (request.headers).get('Authorization');
                 const isLoggedIn = authHeader && authHeader.startsWith('Bearer ' + this.token);
-                if (!isLoggedIn) return error();
+                if (!isLoggedIn) { return error(); }
                 return ok([1, 2, 3, 4, 5, 6]);
             }
 

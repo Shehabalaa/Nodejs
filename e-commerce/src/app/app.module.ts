@@ -10,7 +10,7 @@ import { TitleCasePipe } from './pipes/title-case.pipe';
 import { SummaryPipe } from './pipes/summary.pipe';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 

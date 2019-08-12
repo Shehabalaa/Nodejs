@@ -2,9 +2,9 @@ import { BadInput } from './../common/bad-input';
 import { NotFoundError } from './../common/not-found-error';
 import { AppError } from './../common/app-error';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators'
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class DataService {
@@ -25,7 +25,7 @@ export class DataService {
     create(resource) {
         return this.http.post(this.url, JSON.stringify(resource))
             .pipe(map((response: Response) => response.json()))
-            .pipe(catchError(this.handleError))
+            .pipe(catchError(this.handleError));
     }
 
     update(resource) {
@@ -41,12 +41,13 @@ export class DataService {
     }
 
     private handleError(error: Response) {
-        if (error.status === 400 || error.status === 401)
-            return Observable.throw(new BadInput(error.json()));
+        if (error.status === 400 || error.status === 401) {
+            return throwError(new BadInput(error.json()));
+        }
+        if (error.status === 404) {
+            return throwError(new NotFoundError());
+        }
 
-        if (error.status === 404)
-            return Observable.throw(new NotFoundError());
-
-        return Observable.throw(new AppError(error));
+        return throwError(new AppError(error));
     }
 }

@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-    orders = []
+    orders = [];
     constructor(private http: HttpClient, private usersService: UsersService) { }
 
     ngOnInit() {
-        this.http.get('/users/orders', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
+        this.http.get('/users/orders', { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } })
             .subscribe((orders: any) => {
                 this.orders = orders;
             });
