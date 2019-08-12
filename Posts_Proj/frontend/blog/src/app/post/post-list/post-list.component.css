@@ -1,0 +1,14 @@
+mat-expansion-panel {
+    margin: 1rem 1rem;
+    max-width: 800px;
+}
+
+mat-action-row {
+    height: 2rem;
+}
+
+mat-spinner{
+    margin-top: 1rem;
+    margin: 2rem 5rem;
+}
+
