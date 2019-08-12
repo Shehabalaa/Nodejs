@@ -1,61 +1,37 @@
+import { fakeBackendProvider } from './common/fake-backend';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { AppRoutingModule } from './app-routing.module';
-import { GithubFollowersService } from './services/github-followers.service';
-import { AppErrorHandler } from './common/app-error-handler';
-import { HttpClientModule } from '@angular/common/http';
-import { PostService } from './services/post.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { SummaryPipe } from './summary.pipe';
-import { AuthorsService } from './authors.service';
-import { CoursesService } from './courses.service';
-import { CoursesComponent } from './courses.component';
+import { OrdersComponent } from './orders/orders.component';
+import { InputFormatDirective } from './directives/input-format/input-format.directive';
+import { TitleCasePipe } from './pipes/title-case.pipe';
+import { SummaryPipe } from './pipes/summary.pipe';
+
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AppErrorHandler } from './common/app-error-handler';
 import { NgModule, ErrorHandler } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { CourseComponent } from './course/course.component';
-import { AuthorsComponent } from './authors/authors.component';
-import { FavoriteComponent } from './favorite/favorite.component';
-import { PanelComponent } from './panel/panel.component';
-import { InputFormatDirective } from './input-format.directive';
-import { TitleCasePipe } from './title-case.pipe';
-import { LikeComponent } from './like/like.component';
-import { ZippyComponent } from './zippy/zippy.component';
-import { ContactFormComponent } from './contact-form/contact-form.component';
-import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { PostsComponent } from './posts/posts.component';
-import { GithubFollowersComponent } from './github-followers/github-followers.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './home/home.component';
-import { GithubProfileComponent } from './github-profile/github-profile.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { DataService } from './services/data.service';
+import { UsersService } from './services/users.service';
+
 
 @NgModule({
     declarations: [
         AppComponent,
+        HomeComponent,
+        NavbarComponent,
         SignUpComponent,
         SignInComponent,
-        CourseComponent,
-        CoursesComponent,
-        AuthorsComponent,
-        SummaryPipe,
-        FavoriteComponent,
-        PanelComponent,
         InputFormatDirective,
+        SummaryPipe,
         TitleCasePipe,
-        LikeComponent,
-        ZippyComponent,
-        ContactFormComponent,
-        NewCourseFormComponent,
-        ChangePasswordComponent,
-        PostsComponent,
-        GithubFollowersComponent,
-        NavbarComponent,
-        HomeComponent,
-        GithubProfileComponent,
-        NotFoundComponent
+        OrdersComponent
     ],
     imports: [
         BrowserModule,
@@ -65,10 +41,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
         AppRoutingModule
     ],
     providers: [
-        PostService,
-        CoursesService,
-        AuthorsService,
-        GithubFollowersService,
+        DataService,
+        UsersService,
+        fakeBackendProvider,
         { provide: ErrorHandler, useClass: AppErrorHandler }
     ],
     bootstrap: [AppComponent]
