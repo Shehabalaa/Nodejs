@@ -1,0 +1,3 @@
+<p>Welcome {{usersService.currentUser? usersService.currentUser.username :  '[username]'}} to my cool website</p>
+
+<button class="btn btn-primary" *ngIf="usersService.currentUser" (click)="usersService.signout()">LogOut</button>
